@@ -1,4 +1,4 @@
-#Snowflake Architecture
+# Snowflake Architecture
 Three main components Cloud Services, Query Processing and Storage
 
 1. Storage: 
@@ -11,7 +11,7 @@ Three main components Cloud Services, Query Processing and Storage
 - Brain of the system
 - Security, Metadata, Access control, security and managing infra
 
-Warehouse sizes
+## Warehouse sizes
 XS: 1server  : 1 credit per hour 
 S: 2 server : 2 --""--
 M: 4 Server
@@ -19,5 +19,58 @@ L: 8 servers
 XL 26 Servers
 4XL: 128 servers
 
-We can also use multiple cluster of above servers like 2 S servers 
+We can also use multiple clusters of above servers like 2 S servers 
+
+Create a warehouse : 
+Role of account 
+- Security admin in 2nd powerful after account admin
+- Pubilc role doesn't have access to the warehouse
+- SysAdmin can create a warehouse
+- Sec
+
+## Manage warehouse using SQL:
+```
+USE ROLE SYSADMIN;
+
+CREATE OR REPLACE WAREHOUSE SECOND_WH
+WITH 
+WAREHOUSE_SIZE = XSMALL
+AUTO_SUSPEND = 300 --automatically suspend the virtual warehouse after 5 mins of not being used
+AUTO_RESUME = TRUE
+SCALING_POLICY = 'Economy' 
+MIN_CLUSTER_COUNT = 1
+MAX_CLUSTER_COUNT = 3
+INITIALLY_SUSPENDED = TRUE
+
+COMMENT = "THIS IS our second warehouse";
+
+
+DROP WAREHOUSE SECOND_WH;
+
+
+ALTER WAREHOUSE SECOND_WH SUSPEND; --to suspend
+ALTER WAREHOUSE SECOND_WH RESUME;
+
+ALTER WAREHOUSE SECOND_WH SET WAREHOUSE_SIZE = 'XSMALL'; --can be used without quotes
+ALTER WAREHOUSE SECOND_WH SET AUTO_SUSPEND = 300; 
+```
+
+## Multi Clustering 
+ - your WH can auto-scale up/down multiple clusters as per workload
+ -  There are two scaling policies:
+   - Standard: favors starting additional WH
+     - Prevents/minimizes queuing by favoring the starting of additional clusters
+     - clusters start immediately when either query is queued or the system detects more queries than can be executed by the currently available clusters.
+     - Cluster shuts down after 2-3 consecutive successful checks - performed at 1-minute intervals, determining whether the load on the least-loaded cluster could be redistributed to another cluster.  
+   - Economy: Favors conserving credits rather than starting additional WH
+     - Conserves credits by favoring keeping the running cluster fully loaded rather than starting an additional cluster, which may result in queries being queued and taking longer to complete
+     - Cluster starts only if the system estimates there's enough query load to keep the cluster busy for at least 6 minutes.
+     - Cluster shuts down after 5-6 consecutive successful checks - performed at 1-minute intervals, determining whether the load on the least-loaded cluster could be redistributed to another cluster.  
+### Create DB and objects
+- To create a database we can use the "DATA" menu and use the "+" button to create a DB and other objects like schema, tables & so on. we can use the privilege option to provide access to different roles.
+- 
+
+
+
+
 
