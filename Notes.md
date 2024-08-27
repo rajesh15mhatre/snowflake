@@ -1,4 +1,6 @@
-# Snowflake Architecture
+# Snowflake notes 
+
+## Snowflake Architecture
 Three main components Cloud Services, Query Processing and Storage
 
 1. Storage: 
@@ -68,6 +70,8 @@ ALTER WAREHOUSE SECOND_WH SET AUTO_SUSPEND = 300;
      - Cluster shuts down after 5-6 consecutive successful checks - performed at 1-minute intervals, determining whether the load on the least-loaded cluster could be redistributed to another cluster.  
 ### Create DB and objects
 - To create a database we can use the "DATA" menu and use the "+" button to create a DB and other objects like schema, tables & so on. we can use the privilege option to provide access to different roles.
+
+### Loading data
 - 
 
 
