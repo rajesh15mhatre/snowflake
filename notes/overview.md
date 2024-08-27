@@ -72,7 +72,31 @@ ALTER WAREHOUSE SECOND_WH SET AUTO_SUSPEND = 300;
 - To create a database we can use the "DATA" menu and use the "+" button to create a DB and other objects like schema, tables & so on. we can use the privilege option to provide access to different roles.
 
 ### Loading data
-- 
+- Load data fron S3 bucket:
+```
+CREATE  OR  REPLACE DATABASE EXCERCISE_DB;
+
+USE EXCERCISE_DB;
+
+
+CREATE TABLE EXCERCISE_DB.PUBLIC.CUSTOMERS (
+    ID INT,
+    first_name varchar,
+    last_name varchar,
+    email varchar,
+    age int,
+    city varchar
+);
+
+COPY INTO EXCERCISE_DB.PUBLIC.1000
+    FROM s3://snowflake-assignments-mc/gettingstarted/customers.csv
+    FILE_FORMAT = (type=csv,
+                   field_delimiter = ','
+                   skip_header=1
+                   );
+
+SELECT * FROM CUSTOMERS;
+```
 
 
 
