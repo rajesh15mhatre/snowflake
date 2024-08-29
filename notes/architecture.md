@@ -10,11 +10,52 @@
 - We just have to manage application and tables
 
  # Snowflake features/editions
- - Standard : intro level. Complete DWH, data encryption, support of broad data types, time travel, DR for 7 days, network policy, secure data share, Fedrated auth & SSO, premier support 24/7
- - Enterprise: for large scale enterprise.Provides All standard features, multi-cluster WH, Time travel 90 days, materialize view, Search Optimization, Column level security, 24hrs early access to weekly release
- - Business critical: higher protection for extreamly sensitive data. Provides all Enterprise Features, additional security feature like Customer encryption, support for data specific regulation, DB failover DR
+ - Standard: intro level. Complete DWH, data encryption, support of broad data types, time travel, DR for 7 days, network policy, secure data share, Federated auth & SSO, premier support 24/7
+ - Enterprise: for large-scale enterprise.Provides All standard features, multi-cluster WH, Time travel 90 days, materialized view, Search Optimization, Column level security, 24hrs early access to weekly release
+ - Business critical: higher protection for extremely sensitive data. Provides all Enterprise Features, additional security feature like Customer encryption, support for data specific regulation, DB failover DR
  - Virtual private: highest level security. Provides all Business critical features, dedicated virtual server with isolated env, dedicated metadata store, snowflake account
 
-# snowflake price
+# snowflake(SF) pricing
+- price is decoupled and between storage and compute and priced individually as required
+- Compute consists:
+  - Active warehouse - std query processing
+    - charged for active warehouses per hour
+    - Billed by seconds (min of 1 min)
+    - Depending upon the size of the virtual warehouse size ie compute power also matters. ex price like for XS,S,M,L,XL size WH SF charges 1,2,4,8,16 credits
+    - if summarized, billed on Time, active warehouses, and size
+    - We are charged in credit then credit is converted into currency
+    - for std, enterprise and businees critical SF charges per hour $2,$3 and $4 credit and for virtual private need to contact SF under US region and AWS platform. it will be different for other selection.
+  - Cloud Services - Background cloud service task (charged only when exceeds 10% of warehouse consumption)
+  - Serverless - Search optimization Snowpipe auto resizes
+
+# SF data storage an transfer cost
+- Storage
+  - monthly fee for avg monthly data used based on could provided ex: 1TB $40
+  - cost calculated after data compression
+  - we can save cost by reserving space and making upfront payment if we are sure of usages
+- Data transfer 
+  - Data ingress is free. data egress is chargable.
+  - same region data transfer within SF is free. Other regions and other cloud provider is chargeable
+
+  # Usage:
+  - We can monitor usage under Admin -> cost management. Here we can see detail break down of the consumption by storage, WH, compute, data transfer and so on 
+
+  # Resource Monitor - available from std edition
+  - we can set monthly spend threshold and set below actions when %threshold quota is used. These can be done only by ACCOUNTADMIN role user or user with delegated permissions:
+    - Notify when %X quota is used
+    - Notify & suspend new activity when %X quota used
+    - Notify & suspend immediately when %X quota used
+
+  # Setting resource monitor
+  - 2 types of account or individual user level
+  - Select AccountAdmin role --> cost Management -> resource monitors -> click + to create new 
+  - Name it monthly_account_budget
+  - set quota limit to 10 
+  -  select type - account
+
+# Roles in SF
+- Account Admin -> Security Admin and SysAdmin -> User Admin -> public (Default role)
+
 - 
 
+ 
