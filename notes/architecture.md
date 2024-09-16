@@ -1,12 +1,12 @@
 # Data Warehouse 
-- A data warehouse is created by combiing and optimizing multiple operational (HR/Sales) data sources for analysis and reporting
+- A data warehouse is created by combining and optimizing multiple operational (HR/Sales) data sources for analysis and reporting
 - First we extract raw data from opearational DB to avoid impacting production in stage layer
 - Then we integrate, clean, transform data and establish relationships in integation layer
 - then we have access layer use by downstream like reporting, data science or other in access layer
 
 # Cloud computing
 - We don't have to worry about Physical/Virtual machine and storage all managed by cloud provider
-- We don't have to manage sofware, data , OS all managed by SnowFlake
+- We don't have to manage sofware, data, OS all managed by SnowFlake
 - We just have to manage application and tables
 
  # Snowflake features/editions
